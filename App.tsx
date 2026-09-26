@@ -33,6 +33,11 @@ export default function App() {
     setProdutos(novaLista);
   }
 
+  function limparItens(comprados: boolean) {
+    const novaLista = produtos.filter((produto) => produto.comprado !== comprados);
+    setProdutos(novaLista);
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <Header />
@@ -43,6 +48,7 @@ export default function App() {
         onMudarAba={setAbaAtiva}
         onAlternarComprado={alternarComprado}
         onRemover={removerProduto}
+        onLimpar={limparItens}
       />
     </View>
   );

@@ -1,4 +1,4 @@
-import { View, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text } from 'react-native';
 import { CircleCheckBig, CircleDashed } from 'lucide-react-native';
 import { styles } from './styles';
 import ProdutoListaItem from '../ProdutoListaItem/ProdutoListaItem';
@@ -10,6 +10,7 @@ interface ListaItensProps {
   onMudarAba: (aba: 'presentes' | 'comprados') => void;
   onAlternarComprado: (id: string) => void;
   onRemover: (id: string) => void;
+  onLimpar: (comprados: boolean) => void;
 }
 
 export default function ListaItens({
@@ -18,6 +19,7 @@ export default function ListaItens({
   onMudarAba,
   onAlternarComprado,
   onRemover,
+  onLimpar,
 }: ListaItensProps) {
   const listaFiltrada = produtos.filter((produto) => {
     if (abaAtiva === 'presentes') {
@@ -38,6 +40,9 @@ export default function ListaItens({
             <CircleCheckBig color={abaAtiva === 'comprados' ? '#2f80ed' : '#999'} size={18} />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={() => onLimpar(abaAtiva === 'comprados')}>
+          <Text>Limpar</Text>
+        </TouchableOpacity>
       </View>
 
       <FlatList
