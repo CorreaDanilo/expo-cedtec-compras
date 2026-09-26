@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Check } from 'lucide-react-native';
-import { styles } from './Form.styles';
+import { styles } from './styles';
 
 interface FormProps {
   onAdicionar: (nome: string) => void;
@@ -26,9 +26,9 @@ export default function Form({ onAdicionar }: FormProps) {
         value={texto}
         onChangeText={setTexto}
       />
-      <TouchableOpacity style={styles.botao} onPress={handleAdicionar}>
+      <TouchableOpacity style={styles.button} onPress={handleAdicionar}>
         <Check color="#fff" size={20} />
-        <Text style={styles.textoBotao}>Adicionar</Text>
+        <Text style={styles.buttonText}>Adicionar</Text>
       </TouchableOpacity>
     </View>
   );
