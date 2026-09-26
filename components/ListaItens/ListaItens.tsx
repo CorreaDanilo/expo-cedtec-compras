@@ -8,9 +8,15 @@ interface ListaItensProps {
   produtos: ProdutoItem[];
   abaAtiva: 'presentes' | 'comprados';
   onMudarAba: (aba: 'presentes' | 'comprados') => void;
+  onAlternarComprado: (id: string) => void;
 }
 
-export default function ListaItens({ produtos, abaAtiva, onMudarAba }: ListaItensProps) {
+export default function ListaItens({
+  produtos,
+  abaAtiva,
+  onMudarAba,
+  onAlternarComprado,
+}: ListaItensProps) {
   const listaFiltrada = produtos.filter((produto) => {
     if (abaAtiva === 'presentes') {
       return produto.comprado === false;
@@ -35,7 +41,9 @@ export default function ListaItens({ produtos, abaAtiva, onMudarAba }: ListaIten
       <FlatList
         data={listaFiltrada}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProdutoListaItem produto={item} />}
+        renderItem={({ item }) => (
+          <ProdutoListaItem produto={item} onAlternarComprado={onAlternarComprado} />
+        )}
       />
     </View>
   );

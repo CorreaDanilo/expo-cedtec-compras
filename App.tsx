@@ -18,6 +18,16 @@ export default function App() {
     setProdutos([...produtos, novoProduto]);
   }
 
+  function alternarComprado(id: string) {
+    const novaLista = produtos.map((produto) => {
+      if (produto.id === id) {
+        return { ...produto, comprado: !produto.comprado };
+      }
+      return produto;
+    });
+    setProdutos(novaLista);
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <Header />
@@ -26,6 +36,7 @@ export default function App() {
         produtos={produtos}
         abaAtiva={abaAtiva}
         onMudarAba={setAbaAtiva}
+        onAlternarComprado={alternarComprado}
       />
     </View>
   );
