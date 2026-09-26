@@ -7,6 +7,7 @@ import { ProdutoItem } from './interfaces/ProdutoItem';
 
 export default function App() {
   const [produtos, setProdutos] = useState<ProdutoItem[]>([]);
+  const [abaAtiva, setAbaAtiva] = useState<'presentes' | 'comprados'>('presentes');
 
   function adicionarProduto(nome: string) {
     const novoProduto: ProdutoItem = {
@@ -21,7 +22,11 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <Header />
       <Form onAdicionar={adicionarProduto} />
-      <ListaItens produtos={produtos} />
+      <ListaItens
+        produtos={produtos}
+        abaAtiva={abaAtiva}
+        onMudarAba={setAbaAtiva}
+      />
     </View>
   );
 }

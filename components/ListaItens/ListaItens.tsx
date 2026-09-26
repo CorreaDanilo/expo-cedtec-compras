@@ -1,4 +1,4 @@
-import { View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import { CircleCheckBig, CircleDashed } from 'lucide-react-native';
 import { styles } from './styles';
 import ProdutoListaItem from '../ProdutoListaItem/ProdutoListaItem';
@@ -21,15 +21,15 @@ export default function ListaItens({ produtos, abaAtiva, onMudarAba }: ListaIten
 
   return (
     <View style={styles.container}>
-      <View style={styles.abas}>
-        <TouchableOpacity onPress={() => onMudarAba('presentes')}>
-          <CircleDashed color={abaAtiva === 'presentes' ? '#2f80ed' : '#999'} size={18} />
-          <Text style={styles.textoAba}>Presentes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => onMudarAba('comprados')}>
-          <CircleCheckBig color={abaAtiva === 'comprados' ? '#2f80ed' : '#999'} size={18} />
-          <Text style={styles.textoAba}>Comprados</Text>
-        </TouchableOpacity>
+      <View style={styles.topBar}>
+        <View style={styles.buttonTopBar}>
+          <TouchableOpacity onPress={() => onMudarAba('presentes')}>
+            <CircleDashed color={abaAtiva === 'presentes' ? '#2f80ed' : '#999'} size={18} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onMudarAba('comprados')}>
+            <CircleCheckBig color={abaAtiva === 'comprados' ? '#2f80ed' : '#999'} size={18} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <FlatList
