@@ -1,27 +1,28 @@
-import { StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import Form from "./components/Form/Form";
-import Header from "./components/Header/Header";
-import ListaItens from "./components/ListaItens/ListaItens";
-import { colors } from "./components/colors";
+import { useState } from 'react';
+import { View } from 'react-native';
+import Header from './components/Header/Header';
+import Form from './components/Form/Form';
+import ListaItens from './components/ListaItens/ListaItens';
+import { ProdutoItem } from './interfaces/ProdutoItem';
+import { styles } from './App.styles';
 
 export default function App() {
+  const [produtos, setProdutos] = useState<ProdutoItem[]>([]);
+
+  function adicionarProduto(nome: string) {
+    const novoProduto: ProdutoItem = {
+      id: Date.now().toString(),
+      nome: nome,
+      comprado: false,
+    };
+    setProdutos([...produtos, novoProduto]);
+  }
+
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <Header />
-        <Form />
-        <ListaItens />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <View style={styles.container}>
+      <Header />
+      <Form onAdicionar={adicionarProduto} />
+      <ListaItens produtos={produtos} />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-});

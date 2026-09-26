@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { CircleCheckBig, CircleDashed, Trash2 } from "lucide-react";
+import { CircleCheckBig, CircleDashed, Trash2 } from "lucide-react-native";
 import { ProdutoItem } from "../../interfaces/ProdutoItem";
 import { styles } from "./styles";
 import { colors } from "../colors";

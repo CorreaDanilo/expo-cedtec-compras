@@ -17,7 +17,7 @@
     "expo-router": "~6.0.24",
     "expo-status-bar": "~3.0.9",
     "lucide": "^1.29.0",
-    "lucide-react": "^1.29.0",
+    "lucide-react-native": "^1.48.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",

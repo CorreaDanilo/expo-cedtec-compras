@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react-native";
 import { styles } from "./styles";
 import { colors } from "../colors";
 

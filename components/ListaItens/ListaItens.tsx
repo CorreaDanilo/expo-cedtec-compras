@@ -1,4 +1,4 @@
-import { CircleCheckBig, CircleDashed } from "lucide-react";
+import { CircleCheckBig, CircleDashed } from "lucide-react-native";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useState } from "react";

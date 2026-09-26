@@ -1,5 +1,5 @@
 export interface ProdutoItem {
-  id: string; // identificador
+  id: string;
   nome: string;
-  comprado: boolean; /// true ou false
+  comprado: boolean;
 }
