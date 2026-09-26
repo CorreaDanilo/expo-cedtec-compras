@@ -28,6 +28,11 @@ export default function App() {
     setProdutos(novaLista);
   }
 
+  function removerProduto(id: string) {
+    const novaLista = produtos.filter((produto) => produto.id !== id);
+    setProdutos(novaLista);
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <Header />
@@ -37,6 +42,7 @@ export default function App() {
         abaAtiva={abaAtiva}
         onMudarAba={setAbaAtiva}
         onAlternarComprado={alternarComprado}
+        onRemover={removerProduto}
       />
     </View>
   );

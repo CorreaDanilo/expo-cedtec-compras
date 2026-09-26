@@ -9,6 +9,7 @@ interface ListaItensProps {
   abaAtiva: 'presentes' | 'comprados';
   onMudarAba: (aba: 'presentes' | 'comprados') => void;
   onAlternarComprado: (id: string) => void;
+  onRemover: (id: string) => void;
 }
 
 export default function ListaItens({
@@ -16,6 +17,7 @@ export default function ListaItens({
   abaAtiva,
   onMudarAba,
   onAlternarComprado,
+  onRemover,
 }: ListaItensProps) {
   const listaFiltrada = produtos.filter((produto) => {
     if (abaAtiva === 'presentes') {
@@ -42,7 +44,11 @@ export default function ListaItens({
         data={listaFiltrada}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ProdutoListaItem produto={item} onAlternarComprado={onAlternarComprado} />
+          <ProdutoListaItem
+            produto={item}
+            onAlternarComprado={onAlternarComprado}
+            onRemover={onRemover}
+          />
         )}
       />
     </View>
