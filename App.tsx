@@ -1,58 +1,44 @@
 import { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View } from 'react-native';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
 import ListaItens from './components/ListaItens/ListaItens';
 import { ProdutoItem } from './interfaces/ProdutoItem';
-
-const CHAVE_STORAGE = '@minha_lista_compras';
+import {
+  criarProduto,
+  atualizarProduto,
+  removerProduto,
+  observarProdutos,
+} from './src/produtos';
 
 export default function App() {
   const [produtos, setProdutos] = useState<ProdutoItem[]>([]);
   const [abaAtiva, setAbaAtiva] = useState<'presentes' | 'comprados'>('presentes');
 
   useEffect(() => {
-    async function carregarDados() {
-      const jsonSalvo = await AsyncStorage.getItem(CHAVE_STORAGE);
-      if (jsonSalvo) {
-        setProdutos(JSON.parse(jsonSalvo));
-      }
-    }
-    carregarDados();
+    const cancelarEscuta = observarProdutos(setProdutos);
+    return cancelarEscuta;
   }, []);
 
-  useEffect(() => {
-    AsyncStorage.setItem(CHAVE_STORAGE, JSON.stringify(produtos));
-  }, [produtos]);
-
-  function adicionarProduto(nome: string) {
-    const novoProduto: ProdutoItem = {
-      id: Date.now().toString(),
-      nome: nome,
-      comprado: false,
-    };
-    setProdutos([...produtos, novoProduto]);
+  async function adicionarProduto(nome: string) {
+    await criarProduto(nome);
   }
 
-  function alternarComprado(id: string) {
-    const novaLista = produtos.map((produto) => {
-      if (produto.id === id) {
-        return { ...produto, comprado: !produto.comprado };
-      }
-      return produto;
-    });
-    setProdutos(novaLista);
+  async function alternarComprado(id: string) {
+    const produto = produtos.find((p) => p.id === id);
+    if (!produto) return;
+    await atualizarProduto(id, produto.nome, !produto.comprado);
   }
 
-  function removerProduto(id: string) {
-    const novaLista = produtos.filter((produto) => produto.id !== id);
-    setProdutos(novaLista);
+  async function removerItem(id: string) {
+    await removerProduto(id);
   }
 
-  function limparItens(comprados: boolean) {
-    const novaLista = produtos.filter((produto) => produto.comprado !== comprados);
-    setProdutos(novaLista);
+  async function limparItens(comprados: boolean) {
+    const paraRemover = produtos.filter((p) => p.comprado === comprados);
+    for (const produto of paraRemover) {
+      await removerProduto(produto.id);
+    }
   }
 
   return (
@@ -64,7 +50,7 @@ export default function App() {
         abaAtiva={abaAtiva}
         onMudarAba={setAbaAtiva}
         onAlternarComprado={alternarComprado}
-        onRemover={removerProduto}
+        onRemover={removerItem}
         onLimpar={limparItens}
       />
     </View>
